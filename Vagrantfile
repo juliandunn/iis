@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
   config.winrm.username = "vagrant"
   config.winrm.password = "vagrant"
   config.vm.network :forwarded_port, guest: 5985, host: 5985
+  config.vbguest.auto_update = false
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "windows-2012-standard"
