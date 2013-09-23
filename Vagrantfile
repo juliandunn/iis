@@ -11,8 +11,6 @@ Vagrant.configure("2") do |config|
   config.vbguest.auto_update = false
   config.berkshelf.enabled = true
 
-  config.chef_zero.cookbooks = "#{ENV['HOME']}/devel/github/opscode-cookbooks"
-
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "windows-2012-standard"
 
@@ -47,10 +45,10 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
   #
   # config.vm.provider :virtualbox do |vb|
-    # Don't boot with headless mode
+    # Uncomment this to boot the box with a GUI
     # vb.gui = true
-  #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
+    # Use VBoxManage to customize the VM if you like. For example to change memory:
+    # vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   #
   # View the documentation for the provider you're using for more
@@ -67,7 +65,7 @@ Vagrant.configure("2") do |config|
   # to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
 
-  config.vm.provision :chef_client do |chef|
+  config.vm.provision :chef_solo do |chef|
 
     chef.json = {
       "iis" => {
