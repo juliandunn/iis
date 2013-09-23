@@ -4,11 +4,13 @@
 Vagrant.configure("2") do |config|
 
   config.vm.guest = :windows
-  config.windows.halt_timeout = 15
+  config.windows.halt_timeout = 25
   config.winrm.username = "vagrant"
   config.winrm.password = "vagrant"
   config.vm.network :forwarded_port, guest: 5985, host: 5985
   config.vbguest.auto_update = false
+
+  config.chef_zero.cookbooks = "#{ENV['HOME']}/devel/github/opscode-cookbooks"
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "windows-2012-standard"
@@ -43,13 +45,12 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  config.vm.provider :virtualbox do |vb|
+  # config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
-    vb.gui = true
- 
+    # vb.gui = true
   #   # Use VBoxManage to customize the VM. For example to change memory:
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  end
+  # end
   #
   # View the documentation for the provider you're using for more
   # information on available options.
@@ -65,9 +66,7 @@ Vagrant.configure("2") do |config|
   # to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
 
-  config.vm.provision :chef_solo do |chef|
-    chef.json = {
-    }
+  config.vm.provision :chef_client do |chef|
 
     chef.run_list = [
       "recipe[iis]"
