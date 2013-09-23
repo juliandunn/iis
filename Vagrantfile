@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
   config.winrm.password = "vagrant"
   config.vm.network :forwarded_port, guest: 5985, host: 5985
   config.vbguest.auto_update = false
+  config.berkshelf.enabled = true
 
   config.chef_zero.cookbooks = "#{ENV['HOME']}/devel/github/opscode-cookbooks"
 
@@ -67,6 +68,12 @@ Vagrant.configure("2") do |config|
   # config.berkshelf.except = []
 
   config.vm.provision :chef_client do |chef|
+
+    chef.json = {
+      "iis" => {
+        "accept_eula" => true
+      }
+    }
 
     chef.run_list = [
       "recipe[iis]"
