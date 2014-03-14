@@ -24,7 +24,7 @@ if RUBY_PLATFORM =~ /mswin|mingw32|windows/
 end
 
 module Opscode
-  module Opscode::IIS
+  module IIS
     class Helper
 
       def self.older_than_windows2008r2?

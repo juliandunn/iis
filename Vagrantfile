@@ -69,7 +69,8 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
-      "recipe[iis]"
+      "recipe[iis]",
+      "recipe[iis::mod_cgi]"
     ]
   end
 end
